@@ -12,7 +12,7 @@
     "domainAdminUsername": {
       "type": "string",
       "displayName": "Domain join user account",
-      "description": "The Active Directory (AD) account (e.g. CORP\\user or user@corp.contoso.com) that has permissions to join the domain"
+      "description": "The Active Directory (AD) account (e.g. DEVTEST\\user or user@devtest.lab) that has permissions to join the domain"
     },
     "domainAdminPassword": {
       "type": "securestring",
@@ -22,12 +22,12 @@
     "domainToJoin": {
       "type": "string",
       "displayName": "Active Directory domain name",
-      "description": "The name of the Active Directory (AD) domain to join (e.g. corp.contoso.com)."
+      "description": "The name of the Active Directory (AD) domain to join (e.g. devtest.lab)."
     },
     "ouPath": {
       "type": "string",
       "displayName": "Active Directory (AD) domain OU",
-      "description": "The OU path e.g. OU=Workstations,OU=Machines,DC=corp,DC=contoso,DC=com"
+      "description": "The OU path e.g. OU=DEV,OU=Computers,OU=DEVTEST,DC=devtest,DC=lab or OU=TST,OU=Computers,OU=DEVTEST,DC=devtest,DC=lab"
     }
   },
   "runCommand": {
