@@ -1,1 +1,7 @@
-
+{
+    "itemDisplayName": "Create a new Domain-Joined VM in Azure DevTest Labs",
+    "description": "This template creates a new Windows 10 VM and adds it to Active Directory (AD)",
+    "summary": "This template creates a new VM",
+    "githubUsername": "R. Ypelaar",
+    "dateUpdated": "2018-03-28"
+  }
