@@ -60,6 +60,18 @@
       "type": "string",
       "defaultValue": "testou"
     }
+        "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
+      "type": "string",
+      "defaultValue": "\"https://github.com/QNHGIT/DTL-Demo/blob/master/Artifacts/01-changedns/artifact.ps1\""
+    },
+    "Run_PowerShell_script_to_change_DNS_scriptToRun": {
+      "type": "string",
+      "defaultValue": "artifact.ps1"
+    },
+    "Run_PowerShell_script_to_change_DNS_scriptArguments": {
+      "type": "string",
+      "defaultValue": ""
+    }
   },
   "variables": {
     "subscriptionid": "[subscription().subscriptionId]",
@@ -104,6 +116,23 @@
           "password": "[parameters('localUserPassword')]",
           "isAuthenticationWithSshKey": false,
           "artifacts": [
+            {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo280', '01-changedns')]",
+            "parameters": [
+              {
+                "name": "scriptFileUris",
+                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptFileUris')]"
+              },
+              {
+                "name": "scriptToRun",
+                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptToRun')]"
+              },
+              {
+                "name": "scriptArguments",
+                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptArguments')]"
+              }
+            ]
+          }
             {
               "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-restart')]"
             },
