@@ -59,8 +59,8 @@
     "Join_Active_Directory_(AD)_domain_ouPath": {
       "type": "string",
       "defaultValue": "testou"
-    }
-        "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
+    },
+     "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
       "type": "string",
       "defaultValue": "\"https://github.com/QNHGIT/DTL-Demo/blob/master/Artifacts/01-changedns/artifact.ps1\""
     },
