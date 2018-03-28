@@ -142,12 +142,13 @@
                 }
               ]
             }
-          },
+          
           "dnsSettings": {
             "dnsServers": [
               "[parameters('dnsIp')]"
             ]
           }
+        }
         }
       }
     ]
