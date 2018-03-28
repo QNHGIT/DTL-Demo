@@ -1,0 +1,154 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmName": {
+      "type": "string",
+      "defaultValue": "NewW10VMd2sv3"
+    },
+    "labName": {
+      "type": "string",
+      "defaultValue": "ENX-DTL-GRP01-PRD"
+    },
+    "size": {
+      "type": "string",
+      "defaultValue": "Standard_D2S_V3"
+    },
+    "localUserName": {
+      "type": "string",
+      "defaultValue": "localUser"
+    },
+    "localUserPassword": {
+      "type": "securestring"
+    },
+    "dnsIp": {
+      "type": "string",
+      "defaultValue": "10.0.0.4"
+    },
+    "keyVaultName": {
+      "type": "string",
+      "defaultValue": "bigkeyvault",
+      "metadata": {
+        "description": "Enter the Name for an existing Key Vault containing the secret to be used to logon to the Virtual Server(s)"
+      }
+    },
+    "keyVaultExistingResourceGroup": {
+      "type": "string",
+      "defaultValue": "QNH-RG-LAB-WE-RY2",
+      "metadata": {
+        "description": "Specify the existing Resource Group where the Key Vault resides."
+      }
+    },
+    "secretName": {
+      "type": "string",
+      "defaultValue": "srvradmin",
+      "metadata": {
+        "description": "Specify the secret to obtain from the Key Vault"
+      }
+    },
+    "Join_Active_Directory_(AD)_domain_domainAdminUsername": {
+      "type": "string"
+    },
+    "Join_Active_Directory_(AD)_domain_domainAdminPassword": {
+      "type": "securestring"
+    },
+    "Join_Active_Directory_(AD)_domain_domainToJoin": {
+      "type": "string",
+      "defaultValue": "testry.local"
+    },
+    "Join_Active_Directory_(AD)_domain_ouPath": {
+      "type": "string",
+      "defaultValue": "testou"
+    }
+  },
+  "variables": {
+    "subscriptionid": "[subscription().subscriptionId]",
+    "keyVault-settings": {
+      "name": "[parameters('keyVaultName')]",
+      "existingRg": "[parameters('keyVaultExistingResourceGroup')]",
+      "secret": "[parameters('secretName')]"
+    },
+    "ids": {
+      "keyVault": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault",
+    },
+    "labSubnetName": "[concat(variables('labVirtualNetworkName'),'Subnet')]",
+    "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('labName'), variables('labVirtualNetworkName'))]",
+    "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
+    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('vmName'))]",
+    "vmName": "[concat(parameters('labName'), '/', parameters('vmName'))]"
+
+
+  },
+    "resources": [
+      {
+        "apiVersion": "2017-04-26-preview",
+        "type": "Microsoft.DevTestLab/labs/virtualmachines",
+        "name": "[concat(variables('vmName'), padLeft(copyIndex(), 2, '0'))]",
+        "location": "[resourceGroup().location]",
+        "copy": {
+          "name": "[parameters('vmName')]",
+          "count": 1
+        },
+        "properties": {
+          "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
+          "notes": "Windows 10 Pro, Version 1709",
+          "galleryImageReference": {
+            "offer": "Windows-10",
+            "publisher": "MicrosoftWindowsDesktop",
+            "sku": "RS3-Pro",
+            "osType": "Windows",
+            "version": "latest"
+          },
+          "size": "[parameters('size')]",
+          "userName": "[parameters('localUserName')]",
+          "password": "[parameters('localUserPassword')]",
+          "isAuthenticationWithSshKey": false,
+          "artifacts": [
+            {
+              "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-restart')]"
+            },
+            {
+              "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-domain-join-new')]",
+              "parameters": [
+                {
+                  "name": "domainAdminUsername",
+                  "value": "[parameters('Join_Active_Directory_(AD)_domain_domainAdminUsername')]"
+                },
+                {
+                  "name": "domainAdminPassword",
+                  "value": "[parameters('Join_Active_Directory_(AD)_domain_domainAdminPassword')]"
+                },
+                {
+                  "name": "domainToJoin",
+                  "value": "[parameters('Join_Active_Directory_(AD)_domain_domainToJoin')]"
+                },
+                {
+                  "name": "ouPath",
+                  "value": "[parameters('Join_Active_Directory_(AD)_domain_ouPath')]"
+                }
+              ]
+            }
+          ],
+          "labSubnetName": "[variables('labSubnetName')]",
+          "disallowPublicIpAddress": true,
+          "storageType": "Premium",
+          "allowClaim": false,
+          "networkInterface": {
+            "sharedPublicIpAddressConfiguration": {
+              "inboundNatRules": [
+                {
+                  "transportProtocol": "Tcp",
+                  "backendPort": 3389
+                }
+              ]
+            }
+          },
+          "dnsSettings": {
+            "dnsServers": [
+              "[parameters('dnsIp')]"
+            ]
+          }
+        }
+      }
+    ]
+  }
