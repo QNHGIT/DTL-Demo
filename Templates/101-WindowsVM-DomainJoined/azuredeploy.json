@@ -132,7 +132,7 @@
                 "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptArguments')]"
               }
             ]
-          }
+          },
             {
               "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-restart')]"
             },
