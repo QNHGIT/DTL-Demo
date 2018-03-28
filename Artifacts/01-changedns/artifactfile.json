@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "Run PowerShell" script to change DNS,
+    "title": "Run PowerShell script to change DNS",
     "description": "Change DNS settings on VM",
     "publisher": "QNH",
     "tags": [
@@ -18,7 +18,7 @@
         "scriptToRun": {
             "type": "string",
             "displayName": "Script to Run",
-            "defaultValue": "Artifact.ps1", 
+            "defaultValue": "artifact.ps1", 
             "description": "Script file to run."
         },
         "scriptArguments": {
