@@ -37,9 +37,6 @@
     },
     "Join_Active_Directory_(AD)_domain_domainToJoin": {
       "type": "string"
-    },
-    "Join_Active_Directory_(AD)_domain_ouPath": {
-      "type": "string"
     }
   },
   "variables": {
@@ -101,7 +98,7 @@
               },
               {
                 "name": "ouPath",
-                "value": "[parameters('Join_Active_Directory_(AD)_domain_ouPath')]"
+                "value": ""
               }
             ]
           }
