@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vmName": {
-      "value": "NewW10VMd2sv3"
+      "value": "NewW10VMd2sv3235"
     },
     "labName": {
       "value": "ENX-DTL-GRP01-PRD"
@@ -13,9 +13,6 @@
     },
     "localUserName": {
       "value": "localUser"
-    },
-    "localUserPassword": {
-      "type": "securestring"
     },
     "dnsIp": {
       "value": "10.0.0.4"
@@ -43,10 +40,11 @@
     "Join_Active_Directory_(AD)_domain_ouPath": {
       "value": "testou"
     },
-     "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
+    "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
       "value": "\"https://github.com/QNHGIT/DTL-Demo/blob/master/Artifacts/01-changedns/artifact.ps1\""
     },
     "Run_PowerShell_script_to_change_DNS_scriptToRun": {
       "value": "artifact.ps1"
     }
   }
+}
