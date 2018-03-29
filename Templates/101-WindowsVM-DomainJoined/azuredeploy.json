@@ -2,45 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "vmName": {
-      "type": "string"
-    },
-    "labName": {
-      "type": "string"
-    },
-    "size": {
-      "type": "string"
-    },
-    "localUserName": {
-      "type": "string"
-    },
-    "localUserPassword": {
-      "type": "securestring"
-    },
-    "dnsIp": {
-      "type": "string"
-    },
-    "keyVaultName": {
-      "type": "string"
-    },
-    "secretName": {
-      "type": "string"
-    },
-    "keyVaultExistingResourceGroup": {
-      "type": "string"
-    },
-    "Join_Active_Directory_(AD)_domain_domainAdminUsername": {
-      "type": "string"
-    },
-    "Join_Active_Directory_(AD)_domain_domainAdminPassword": {
-      "type": "securestring"
-    },
-    "Join_Active_Directory_(AD)_domain_domainToJoin": {
-      "type": "string"
-    },
-    "Join_Active_Directory_(AD)_domain_ouPath": {
-      "type": "string"
-    }
   },
   "variables": {
     "subscriptionid": "[subscription().subscriptionId]",
