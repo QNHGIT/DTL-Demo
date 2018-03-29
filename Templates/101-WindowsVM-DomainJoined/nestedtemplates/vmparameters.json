@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vmName": {
-      "value": "W10VMd4"
+      "value": "[concat(parameters('labName'),'VM',uniqueString(resourceGroup().id))]"
     },
     "labName": {
       "value": "ENX-DTL-GRP01-PRD"
