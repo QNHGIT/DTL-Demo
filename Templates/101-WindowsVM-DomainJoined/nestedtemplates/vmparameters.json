@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vmName": {
-      "value": "W10VMd3"
+      "value": "W10VMd4"
     },
     "labName": {
       "value": "ENX-DTL-GRP01-PRD"
