@@ -2,6 +2,30 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "vmName": {
+      "value": "NewW10VMd2sv3"
+    },
+    "labName": {
+      "value": "ENX-DTL-GRP01-PRD"
+    },
+    "size": {
+      "value": "Standard_D2S_V3"
+    },
+    "localUserName": {
+      "value": "localUser"
+    },
+    "localUserPassword": {
+      "type": "securestring"
+    },
+    "dnsIp": {
+      "value": "10.0.0.4"
+    },
+    "keyVaultName": {
+      "value": "bigkeyvault"
+    },
+    "keyVaultExistingResourceGroup": {
+      "value": "QNH-RG-LAB-WE-RY2"
+    },
     "Join_Active_Directory_(AD)_domain_domainAdminUsername": {
       "value": "testry.local\\srvradmin"
     },
@@ -12,6 +36,17 @@
         },
         "secretName": "srvradmin"
       }
+    },
+    "Join_Active_Directory_(AD)_domain_domainToJoin": {
+      "value": "testry.local"
+    },
+    "Join_Active_Directory_(AD)_domain_ouPath": {
+      "value": "testou"
+    },
+     "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
+      "value": "\"https://github.com/QNHGIT/DTL-Demo/blob/master/Artifacts/01-changedns/artifact.ps1\""
+    },
+    "Run_PowerShell_script_to_change_DNS_scriptToRun": {
+      "value": "artifact.ps1"
     }
   }
-}
