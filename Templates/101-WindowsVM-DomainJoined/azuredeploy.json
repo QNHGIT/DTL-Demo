@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vmName": {
@@ -60,7 +60,7 @@
       "type": "string",
       "defaultValue": "testou"
     },
-     "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
+    "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
       "type": "string",
       "defaultValue": "\"https://github.com/QNHGIT/DTL-Demo/blob/master/Artifacts/01-changedns/artifact.ps1\""
     },
@@ -69,109 +69,27 @@
       "defaultValue": "artifact.ps1"
     },
     "Run_PowerShell_script_to_change_DNS_scriptArguments": {
-      "type": "string",
+      "type": "string"
     }
   },
   "variables": {
-    "subscriptionid": "[subscription().subscriptionId]",
-    "keyVault-settings": {
-      "name": "[parameters('keyVaultName')]",
-      "existingRg": "[parameters('keyVaultExistingResourceGroup')]",
-      "secret": "[parameters('secretName')]"
-    },
-    "ids": {
-      "keyVault": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault",
-    },
-    "labSubnetName": "[concat(variables('labVirtualNetworkName'),'Subnet')]",
-    "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('labName'), variables('labVirtualNetworkName'))]",
-    "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
-    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('vmName'))]",
-    "vmName": "[concat(parameters('labName'), '/', parameters('vmName'))]"
-
-
   },
-    "resources": [
-      {
-        "apiVersion": "2017-04-26-preview",
-        "type": "Microsoft.DevTestLab/labs/virtualmachines",
-        "name": "[concat(variables('vmName'), padLeft(copyIndex(), 2, '0'))]",
-        "location": "[resourceGroup().location]",
-        "copy": {
-          "name": "[parameters('vmName')]",
-          "count": 1
+  "resources": [
+    {
+      "apiVersion": "2017-05-10",
+      "name": "vm",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://github.com/QNHGIT/DTL-Demo/blob/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vm.json",
+          "contentVersion": "1.0.0.0"
         },
-        "properties": {
-          "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
-          "notes": "Windows 10 Pro, Version 1709",
-          "galleryImageReference": {
-            "offer": "Windows-10",
-            "publisher": "MicrosoftWindowsDesktop",
-            "sku": "RS3-Pro",
-            "osType": "Windows",
-            "version": "latest"
-          },
-          "size": "[parameters('size')]",
-          "userName": "[parameters('localUserName')]",
-          "password": "[parameters('localUserPassword')]",
-          "isAuthenticationWithSshKey": false,
-          "artifacts": [
-            {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo280', '01-changedns')]",
-            "parameters": [
-              {
-                "name": "scriptFileUris",
-                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptFileUris')]"
-              },
-              {
-                "name": "scriptToRun",
-                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptToRun')]"
-              },
-              {
-                "name": "scriptArguments",
-                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptArguments')]"
-              }
-            ]
-          },
-            {
-              "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-restart')]"
-            },
-            {
-              "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-domain-join-new')]",
-              "parameters": [
-                {
-                  "name": "domainAdminUsername",
-                  "value": "[parameters('Join_Active_Directory_(AD)_domain_domainAdminUsername')]"
-                },
-                {
-                  "name": "domainAdminPassword",
-                  "value": "[parameters('Join_Active_Directory_(AD)_domain_domainAdminPassword')]"
-                },
-                {
-                  "name": "domainToJoin",
-                  "value": "[parameters('Join_Active_Directory_(AD)_domain_domainToJoin')]"
-                },
-                {
-                  "name": "ouPath",
-                  "value": "[parameters('Join_Active_Directory_(AD)_domain_ouPath')]"
-                }
-              ]
-            }
-          ],
-          "labSubnetName": "[variables('labSubnetName')]",
-          "disallowPublicIpAddress": true,
-          "storageType": "Premium",
-          "allowClaim": false,
-          "networkInterface": {
-            "sharedPublicIpAddressConfiguration": {
-              "inboundNatRules": [
-                {
-                  "transportProtocol": "Tcp",
-                  "backendPort": 3389
-                }
-              ]
-            }
-          }
+        "parametersLink": {
+          "uri": "https://github.com/QNHGIT/DTL-Demo/blob/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vmparameters.json",
+          "contentVersion": "1.0.0.0"
         }
       }
-    ]
-  }
+    }
+  ]
+}
