@@ -4,20 +4,6 @@
   "parameters": {
   },
   "variables": {
-    "subscriptionid": "[subscription().subscriptionId]",
-    "keyVault-settings": {
-      "name": "[parameters('keyVaultName')]",
-      "existingRg": "[parameters('keyVaultExistingResourceGroup')]",
-      "secret": "[parameters('secretName')]"
-    },
-    "ids": {
-      "keyVault": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault"
-    },
-    "labSubnetName": "[concat(variables('labVirtualNetworkName'),'Subnet')]",
-    "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('labName'), variables('labVirtualNetworkName'))]",
-    "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
-    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('vmName'))]",
-    "vmName": "[concat(parameters('labName'), '/', parameters('vmName'))]"
   },
   "resources": [
     {
