@@ -70,7 +70,6 @@
     },
     "Run_PowerShell_script_to_change_DNS_scriptArguments": {
       "type": "string",
-      "defaultValue": ""
     }
   },
   "variables": {
