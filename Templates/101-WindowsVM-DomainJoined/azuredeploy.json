@@ -67,11 +67,11 @@
         "mode": "Incremental",
         "templateLink": {
           "contentVersion": "1.0.0.0",
-          "uri": "https://github.com/QNHGIT/DTL-Demo/blob/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vm.json"
+          "uri": "https://raw.githubusercontent.com/QNHGIT/DTL-Demo/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vm.json"
         },
         "parametersLink": {
           "contentVersion": "1.0.0.0",
-          "uri": "https://github.com/QNHGIT/DTL-Demo/blob/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vmparameters.json"
+          "uri": "https://raw.githubusercontent.com/QNHGIT/DTL-Demo/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vmparameters.json"
         }
       }
     }
