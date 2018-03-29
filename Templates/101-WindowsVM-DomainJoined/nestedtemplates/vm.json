@@ -4,19 +4,15 @@
   "parameters": {
     "newVMName": {
       "type": "string",
-      "defaultValue": "NewW10VM"
     },
     "newLabName": {
       "type": "string",
-      "defaultValue": "ENX-DTL-GRP01-PRD"
     },
     "size": {
       "type": "string",
-      "defaultValue": "Standard_DS1"
     },
     "userName": {
       "type": "string",
-      "defaultValue": "localUser"
     },
     "password": {
       "type": "securestring"
