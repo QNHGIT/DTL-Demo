@@ -2,71 +2,72 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "newVMName": {
-      "type": "string",
+    "vmName": {
+      "type": "string"
     },
-    "newLabName": {
-      "type": "string",
+    "labName": {
+      "type": "string"
     },
     "size": {
-      "type": "string",
+      "type": "string"
     },
-    "userName": {
-      "type": "string",
+    "localUserName": {
+      "type": "string"
     },
-    "password": {
+    "localUserPassword": {
       "type": "securestring"
     },
-    "keyVaultName": {
-      "type": "string",
-      "metadata": {
-        "description": "Enter the Name for an existing Key Vault containing the secret to be used to logon to the Virtual Server(s)"
-      }
+    "dnsIp": {
+      "type": "string"
     },
-
+    "keyVaultName": {
+      "type": "string"
+    },
     "keyVaultExistingResourceGroup": {
-      "type": "string",
-      "metadata": {
-        "description": "Specify the existing Resource Group where the Key Vault resides."
-      }
+      "type": "string"
     },
     "secretName": {
-      "type": "string",
-      "metadata": {
-        "description": "Specify the secret to obtain from the Key Vault"
-      }
-    },
-    "keyVault-settings": {
-      "value": "[variables('keyVault-settings')]"
+      "type": "string"
     },
     "Join_Active_Directory_(AD)_domain_domainAdminUsername": {
-      "type": "string",
-      "defaultValue": "testry.local\\srvradmin"
+      "type": "string"
     },
     "Join_Active_Directory_(AD)_domain_domainAdminPassword": {
-
+      "type": "securestring"
     },
     "Join_Active_Directory_(AD)_domain_domainToJoin": {
-      "type": "string",
-      "defaultValue": "testry.local"
+      "type": "string"
     },
     "Join_Active_Directory_(AD)_domain_ouPath": {
-      "type": "string",
-      "defaultValue": "testou"
+      "type": "string"
+    },
+     "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
+      "type": "string"
+    },
+    "Run_PowerShell_script_to_change_DNS_scriptToRun": {
+      "type": "string"
+    },
+    "Run_PowerShell_script_to_change_DNS_scriptArguments": {
+      "type": "string"
     }
   },
   "variables": {
+    "subscriptionid": "[subscription().subscriptionId]",
     "keyVault-settings": {
       "name": "[parameters('keyVaultName')]",
       "existingRg": "[parameters('keyVaultExistingResourceGroup')]",
       "secret": "[parameters('secretName')]"
     },
+    "ids": {
+      "keyVault": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault"
+    },
     "labSubnetName": "[concat(variables('labVirtualNetworkName'),'Subnet')]",
-    "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('newLabName'), variables('labVirtualNetworkName'))]",
-    "labVirtualNetworkName": "[concat(parameters('newLabName'),'VNET')]",
-    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('newLabName'), parameters('newVMName'))]",
-    "vmName": "[concat(parameters('newLabName'), '/', parameters('newVMName'))]"
+    "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('labName'), variables('labVirtualNetworkName'))]",
+    "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
+    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('vmName'))]",
+    "vmName": "[concat(parameters('labName'), '/', parameters('vmName'))]"
   },
+
   "resources": [
     {
       "apiVersion": "2017-04-26-preview",
@@ -74,7 +75,7 @@
       "name": "[concat(variables('vmName'), padLeft(copyIndex(), 2, '0'))]",
       "location": "[resourceGroup().location]",
       "copy": {
-        "name": "[parameters('newVMName')]",
+        "name": "[parameters('VMName')]",
         "count": 1
       },
       "properties": {
@@ -88,12 +89,29 @@
           "version": "latest"
         },
         "size": "[parameters('size')]",
-        "userName": "[parameters('userName')]",
-        "password": "[parameters('password')]",
+        "userName": "[parameters('localUserName')]",
+        "password": "[parameters('localUserPassword')]",
         "isAuthenticationWithSshKey": false,
         "artifacts": [
           {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('newLabName'), 'public repo', 'windows-domain-join-new')]",
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo280', '01-changedns')]",
+            "parameters": [
+              {
+                "name": "scriptFileUris",
+                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptFileUris')]"
+              },
+              {
+                "name": "scriptToRun",
+                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptToRun')]"
+              },
+              {
+                "name": "scriptArguments",
+                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptArguments')]"
+              }
+            ]
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('LabName'), 'public repo', 'windows-domain-join-new')]",
             "parameters": [
               {
                 "name": "domainAdminUsername",
@@ -122,7 +140,7 @@
           "sharedPublicIpAddressConfiguration": {
             "inboundNatRules": [
               {
-                "transportProtocol": "tcp",
+                "transportProtocol": "Tcp",
                 "backendPort": 3389
               }
             ]
