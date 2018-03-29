@@ -47,9 +47,6 @@
     },
     "Join_Active_Directory_(AD)_domain_domainToJoin": {
       "value": "testry.local"
-    },
-    "Join_Active_Directory_(AD)_domain_ouPath": {
-      "value": "testou"
     }
   }
 }
