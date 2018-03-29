@@ -94,23 +94,6 @@
         "isAuthenticationWithSshKey": false,
         "artifacts": [
           {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo280', '01-changedns')]",
-            "parameters": [
-              {
-                "name": "scriptFileUris",
-                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptFileUris')]"
-              },
-              {
-                "name": "scriptToRun",
-                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptToRun')]"
-              },
-              {
-                "name": "scriptArguments",
-                "value": "[parameters('Run_PowerShell_script_to_change_DNS_scriptArguments')]"
-              }
-            ]
-          },
-          {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('LabName'), 'public repo', 'windows-domain-join-new')]",
             "parameters": [
               {
