@@ -20,6 +20,9 @@
     "keyVaultName": {
       "value": "bigkeyvault"
     },
+    "secretName": {
+      "value": "srvradmin"
+    },
     "keyVaultExistingResourceGroup": {
       "value": "QNH-RG-LAB-WE-RY2"
     },
