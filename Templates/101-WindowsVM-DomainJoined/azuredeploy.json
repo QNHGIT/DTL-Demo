@@ -2,23 +2,76 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "vmName": {
+      "type": "string"
+    },
+    "labName": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string"
+    },
+    "localUserName": {
+      "type": "string"
+    },
+    "localUserPassword": {
+      "type": "securestring"
+    },
+    "dnsIp": {
+      "type": "string"
+    },
+    "keyVaultName": {
+      "type": "string"
+    },
+    "secretName": {
+      "type": "string"
+    },
+    "keyVaultExistingResourceGroup": {
+      "type": "string"
+    },
+    "Join_Active_Directory_(AD)_domain_domainAdminUsername": {
+      "type": "string"
+    },
+    "Join_Active_Directory_(AD)_domain_domainAdminPassword": {
+      "type": "securestring"
+    },
+    "Join_Active_Directory_(AD)_domain_domainToJoin": {
+      "type": "string"
+    },
+    "Join_Active_Directory_(AD)_domain_ouPath": {
+      "type": "string"
+    }
   },
   "variables": {
+    "subscriptionid": "[subscription().subscriptionId]",
+    "keyVault-settings": {
+      "name": "[parameters('keyVaultName')]",
+      "existingRg": "[parameters('keyVaultExistingResourceGroup')]",
+      "secret": "[parameters('secretName')]"
+    },
+    "ids": {
+      "keyVault": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault"
+    },
+    "labSubnetName": "[concat(variables('labVirtualNetworkName'),'Subnet')]",
+    "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('labName'), variables('labVirtualNetworkName'))]",
+    "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
+    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('vmName'))]",
+    "vmName": "[concat(parameters('labName'), '/', parameters('vmName'))]"
   },
   "resources": [
     {
       "apiVersion": "2017-05-10",
-      "name": "vm",
+      "name": "linkedTemplate",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://github.com/QNHGIT/DTL-Demo/blob/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vm.json",
-          "contentVersion": "1.0.0.0"
+          "contentVersion": "1.0.0.0",
+          "uri": "https://github.com/QNHGIT/DTL-Demo/blob/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vm.json"
         },
         "parametersLink": {
-          "uri": "https://github.com/QNHGIT/DTL-Demo/blob/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vmparameters.json",
-          "contentVersion": "1.0.0.0"
+          "contentVersion": "1.0.0.0",
+          "uri": "https://github.com/QNHGIT/DTL-Demo/blob/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vmparameters.json"
         }
       }
     }
