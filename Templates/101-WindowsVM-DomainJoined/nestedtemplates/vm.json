@@ -23,10 +23,10 @@
     "keyVaultName": {
       "type": "string"
     },
-    "keyVaultExistingResourceGroup": {
+    "secretName": {
       "type": "string"
     },
-    "secretName": {
+    "keyVaultExistingResourceGroup": {
       "type": "string"
     },
     "Join_Active_Directory_(AD)_domain_domainAdminUsername": {
@@ -39,15 +39,6 @@
       "type": "string"
     },
     "Join_Active_Directory_(AD)_domain_ouPath": {
-      "type": "string"
-    },
-     "Run_PowerShell_script_to_change_DNS_scriptFileUris": {
-      "type": "string"
-    },
-    "Run_PowerShell_script_to_change_DNS_scriptToRun": {
-      "type": "string"
-    },
-    "Run_PowerShell_script_to_change_DNS_scriptArguments": {
       "type": "string"
     }
   },
