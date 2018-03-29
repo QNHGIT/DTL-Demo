@@ -1,0 +1,138 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "newVMName": {
+      "type": "string",
+      "defaultValue": "NewW10VM"
+    },
+    "newLabName": {
+      "type": "string",
+      "defaultValue": "ENX-DTL-GRP01-PRD"
+    },
+    "size": {
+      "type": "string",
+      "defaultValue": "Standard_DS1"
+    },
+    "userName": {
+      "type": "string",
+      "defaultValue": "localUser"
+    },
+    "password": {
+      "type": "securestring"
+    },
+    "keyVaultName": {
+      "type": "string",
+      "metadata": {
+        "description": "Enter the Name for an existing Key Vault containing the secret to be used to logon to the Virtual Server(s)"
+      }
+    },
+
+    "keyVaultExistingResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "Specify the existing Resource Group where the Key Vault resides."
+      }
+    },
+    "secretName": {
+      "type": "string",
+      "metadata": {
+        "description": "Specify the secret to obtain from the Key Vault"
+      }
+    },
+    "keyVault-settings": {
+      "value": "[variables('keyVault-settings')]"
+    },
+    "Join_Active_Directory_(AD)_domain_domainAdminUsername": {
+      "type": "string",
+      "defaultValue": "testry.local\\srvradmin"
+    },
+    "Join_Active_Directory_(AD)_domain_domainAdminPassword": {
+
+    },
+    "Join_Active_Directory_(AD)_domain_domainToJoin": {
+      "type": "string",
+      "defaultValue": "testry.local"
+    },
+    "Join_Active_Directory_(AD)_domain_ouPath": {
+      "type": "string",
+      "defaultValue": "testou"
+    }
+  },
+  "variables": {
+    "keyVault-settings": {
+      "name": "[parameters('keyVaultName')]",
+      "existingRg": "[parameters('keyVaultExistingResourceGroup')]",
+      "secret": "[parameters('secretName')]"
+    },
+    "labSubnetName": "[concat(variables('labVirtualNetworkName'),'Subnet')]",
+    "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('newLabName'), variables('labVirtualNetworkName'))]",
+    "labVirtualNetworkName": "[concat(parameters('newLabName'),'VNET')]",
+    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('newLabName'), parameters('newVMName'))]",
+    "vmName": "[concat(parameters('newLabName'), '/', parameters('newVMName'))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-04-26-preview",
+      "type": "Microsoft.DevTestLab/labs/virtualmachines",
+      "name": "[concat(variables('vmName'), padLeft(copyIndex(), 2, '0'))]",
+      "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "[parameters('newVMName')]",
+        "count": 1
+      },
+      "properties": {
+        "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
+        "notes": "Windows 10 Pro, Version 1709",
+        "galleryImageReference": {
+          "offer": "Windows-10",
+          "publisher": "MicrosoftWindowsDesktop",
+          "sku": "RS3-Pro",
+          "osType": "Windows",
+          "version": "latest"
+        },
+        "size": "[parameters('size')]",
+        "userName": "[parameters('userName')]",
+        "password": "[parameters('password')]",
+        "isAuthenticationWithSshKey": false,
+        "artifacts": [
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('newLabName'), 'public repo', 'windows-domain-join-new')]",
+            "parameters": [
+              {
+                "name": "domainAdminUsername",
+                "value": "[parameters('Join_Active_Directory_(AD)_domain_domainAdminUsername')]"
+              },
+              {
+                "name": "domainAdminPassword",
+                "value": "[parameters('Join_Active_Directory_(AD)_domain_domainAdminPassword')]"
+              },
+              {
+                "name": "domainToJoin",
+                "value": "[parameters('Join_Active_Directory_(AD)_domain_domainToJoin')]"
+              },
+              {
+                "name": "ouPath",
+                "value": "[parameters('Join_Active_Directory_(AD)_domain_ouPath')]"
+              }
+            ]
+          }
+        ],
+        "labSubnetName": "[variables('labSubnetName')]",
+        "disallowPublicIpAddress": true,
+        "storageType": "Premium",
+        "allowClaim": false,
+        "networkInterface": {
+          "sharedPublicIpAddressConfiguration": {
+            "inboundNatRules": [
+              {
+                "transportProtocol": "tcp",
+                "backendPort": 3389
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
