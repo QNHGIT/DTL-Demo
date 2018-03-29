@@ -11,8 +11,10 @@
     "parameters": {
         "scriptFileUris": {
             "type": "array",
-            "displayName": "File URI(s)",
-            "defaultValue": "https://github.com/QNHGIT/DTL-Demo/blob/master/Artifacts/01-changedns/artifact.ps1", 
+            "displayName": "File URI(s)",            
+            "defaultValue":[  
+                "https://github.com/QNHGIT/DTL-Demo/blob/master/Artifacts/01-changedns/artifact.ps1"
+            ],
             "description": "All the files to download to the VM for script execution. To specify multiple files, format them as a JSON array (e.g. [\"file1\", \"file2\"])."
         },
         "scriptToRun": {
