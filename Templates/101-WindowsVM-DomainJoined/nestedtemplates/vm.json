@@ -63,7 +63,7 @@
     {
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs/virtualmachines",
-      "name": "[concat(variables('vmName'), padLeft(copyIndex(), 2, '1'))]",
+      "name": "[concat(variables('vmName'), padLeft(copyIndex(1), 2, '0'))]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "[parameters('vmName')]",
