@@ -4,9 +4,11 @@
   "parameters": {
     "vmName": {
       "type": "string"
+      "maxLength": 15,
     },
     "Aantal": {
-      "type": "int"
+      "type": "int",
+      "minValue": 1,
     }
   },
   "variables": {},
