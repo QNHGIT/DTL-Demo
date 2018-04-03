@@ -5,6 +5,9 @@
     "Name": {
       "type": "string"
     },
+    "Aantal": {
+    "type": "string"
+    },
     "labName": {
       "type": "string"
     },
@@ -64,7 +67,7 @@
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "[parameters('VMName')]",
-        "count": 1
+        "count": "[parameters('Aantal')]"
       },
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
