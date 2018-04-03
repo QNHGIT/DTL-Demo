@@ -22,7 +22,7 @@
           "uri": "https://raw.githubusercontent.com/QNHGIT/DTL-Demo/master/Templates/101-WindowsVM-DomainJoined/nestedtemplates/vm.json"
         },
         "parameters": {
-          "Name": {
+          "vmName": {
             "value": "[parameters('vmName')]"
           },
           "Aantal": {
