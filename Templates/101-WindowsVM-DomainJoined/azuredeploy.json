@@ -6,7 +6,7 @@
       "type": "string"
     },
     "Aantal": {
-      "type": "string"
+      "type": "int"
     }
   },
   "variables": {},
