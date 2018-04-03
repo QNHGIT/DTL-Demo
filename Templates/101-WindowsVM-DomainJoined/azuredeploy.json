@@ -4,15 +4,24 @@
   "parameters": {
     "vmName": {
       "type": "string",
-      "maxLength": 15
+      "maxLength": 15,
+      "metadata": {
+        "description": "Naam van de Virtuele Machine(s)."
+        }
     },
     "Aantal": {
       "type": "int",
-      "minValue": 1
+      "minValue": 1,
+      "metadata": {
+        "description": "Aantal Virtuele Machine(s)."
+        }
     },
     "domainjoinornot": {
       "type": "string",
-      "allowedValues": ["ja", "nee"]
+      "allowedValues": ["ja", "nee"],
+      "metadata": {
+        "description": "Wilt u de Virtuele Machine(s) toevoegen aan de Active Directory?"
+        }
     }
   },
   "variables": {},
