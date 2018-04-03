@@ -68,7 +68,7 @@
       "condition": "[equals(variables('domainjoinornot'),'ja')]",
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs/virtualmachines",
-      "name": "[concat(variables('vmName'), padLeft(copyIndex(1), 2, '0'))]",
+      "name": "[concat(variables('vmName'), 'DMN', padLeft(copyIndex(1), 2, '0'))]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "[parameters('vmName')]",
@@ -126,7 +126,7 @@
       "condition": "[equals(variables('domainjoinornot'),'nee')]",
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs/virtualmachines",
-      "name": "[concat(variables('vmName'), padLeft(copyIndex(1), 2, '0'))]",
+      "name": "[concat(variables('vmName'), 'LCL', padLeft(copyIndex(1), 2, '0'))]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "[parameters('vmName')]",
