@@ -9,7 +9,11 @@
     "Aantal": {
       "type": "int",
       "minValue": 1
-    }
+    },
+    "domainjoinornot": {
+      "type": "string",
+      "allowedValues": ["ja", "nee"]
+    },
   },
   "variables": {},
   "resources": [
@@ -29,6 +33,9 @@
           },
           "Aantal": {
             "value": "[parameters('Aantal')]"
+          },
+          "domainjoinornot": {
+            "value": "[parameters('domainjoinornot')]"
           },
           "labName": {
             "value": "ENX-DTL-GRP01-PRD"
