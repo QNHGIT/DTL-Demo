@@ -3,12 +3,12 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vmName": {
-      "type": "string"
-      "maxLength": 15,
+      "type": "string",
+      "maxLength": 15
     },
     "Aantal": {
       "type": "int",
-      "minValue": 1,
+      "minValue": 1
     }
   },
   "variables": {},
