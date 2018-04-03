@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "vmName": {
+    "Name": {
       "type": "string"
     },
     "labName": {
@@ -52,15 +52,15 @@
     "labSubnetName": "[concat(variables('labVirtualNetworkName'),'Subnet')]",
     "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('labName'), variables('labVirtualNetworkName'))]",
     "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
-    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('vmName'))]",
-    "vmName": "[concat(parameters('labName'), '/', parameters('vmName'))]"
+    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('Name'))]",
+    "vmName": "[concat(parameters('labName'), '/', parameters('Name'))]"
   },
 
   "resources": [
     {
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs/virtualmachines",
-      "name": "[concat(variables('vmName'), padLeft(copyIndex(), 2, '0'))]",
+      "name": "[concat(variables('vmName'), padLeft(copyIndex(), 2, '1'))]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "[parameters('VMName')]",
@@ -68,14 +68,8 @@
       },
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
-        "notes": "Windows 10 Pro, Version 1709",
-        "galleryImageReference": {
-          "offer": "Windows-10",
-          "publisher": "MicrosoftWindowsDesktop",
-          "sku": "RS3-Pro",
-          "osType": "Windows",
-          "version": "latest"
-        },
+        "notes": "Windows Enexis Image 1703",
+        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourcegroups/qnh-rg-lab-we-ry2/providers/microsoft.devtestlab/labs/enx-dtl-grp01-prd/customimages/enx-vm-1703",
         "size": "[parameters('size')]",
         "userName": "[parameters('localUserName')]",
         "password": "[parameters('localUserPassword')]",
