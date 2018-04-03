@@ -55,7 +55,7 @@
     "labSubnetName": "[concat(variables('labVirtualNetworkName'),'Subnet')]",
     "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', parameters('labName'), variables('labVirtualNetworkName'))]",
     "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
-    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('Name'))]",
+    "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('vmName'))]",
     "vmName": "[concat(parameters('labName'), '/', parameters('vmName'))]"
   },
 
