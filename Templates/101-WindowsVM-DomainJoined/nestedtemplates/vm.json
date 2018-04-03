@@ -66,7 +66,7 @@
       "name": "[concat(variables('vmName'), padLeft(copyIndex(), 2, '1'))]",
       "location": "[resourceGroup().location]",
       "copy": {
-        "name": "[parameters('VMName')]",
+        "name": "[parameters('vmName')]",
         "count": "[parameters('Aantal')]"
       },
       "properties": {
