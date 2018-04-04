@@ -4,7 +4,7 @@
   "parameters": {
     "vmName": {
       "type": "string",
-      "maxLength": 15,
+      "maxLength": 11,
       "metadata": {
         "description": "Naam van de Virtuele Machine(s)."
         }
@@ -16,9 +16,22 @@
         "description": "Aantal Virtuele Machine(s)."
         }
     },
+    "Username": {
+      "type": "string",
+      "metadata": {
+        "description": "Lokale gebruikersnaam"
+        }
+    },
+    "Password": {
+      "type": "securestring",
+      "minLength": 8,
+      "metadata": {
+        "description": "Wachtwoord voor de lokale gebruiker"
+        }
+    },
     "domainjoinornot": {
       "type": "string",
-      "allowedValues": ["ja", "nee"],
+      "allowedValues": ["Ja", "Nee"],
       "metadata": {
         "description": "Wilt u de Virtuele Machine(s) toevoegen aan de Active Directory?"
         }
@@ -53,15 +66,10 @@
             "value": "Standard_D2S_V3"
           },
           "localUserName": {
-            "value": "localUser"
+            "value": "[parameters('Username')]"
           },
           "localUserPassword": {
-            "reference": {
-              "keyVault": {
-                "id": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault"
-              },
-              "secretName": "autocreateduser"
-            }
+            "value": "[parameters('Password')]"
           },
           "dnsIp": {
             "value": "10.0.0.4"
