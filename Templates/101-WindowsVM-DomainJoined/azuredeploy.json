@@ -71,6 +71,17 @@
           "localUserPassword": {
             "value": "[parameters('Password')]"
           },
+          "localUserName2": {
+            "value": "enexis"
+          },
+          "localUserPassword2": {
+            "reference": {
+              "keyVault": {
+                "id": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault"
+              },
+              "secretName": "srvradmin"
+            }
+          },
           "dnsIp": {
             "value": "10.0.0.4"
           },
