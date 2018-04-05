@@ -20,6 +20,12 @@
     "localUserPassword": {
       "type": "securestring"
     },
+    "localUserName2": {
+      "type": "string"
+    },
+    "localUserPassword2": {
+      "type": "securestring"
+    },
     "dnsIp": {
       "type": "string"
     },
@@ -79,8 +85,8 @@
         "notes": "Windows Enexis Image 1703",
         "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourcegroups/qnh-rg-lab-we-ry2/providers/microsoft.devtestlab/labs/enx-dtl-grp01-prd/customimages/enx-vm-1703",
         "size": "[parameters('size')]",
-        "userName": "[parameters('localUserName')]",
-        "password": "[parameters('localUserPassword')]",
+        "userName": "[parameters('localUserName2')]",
+        "password": "[parameters('localUserPassword2')]",
         "isAuthenticationWithSshKey": false,
         "artifacts": [
           {
