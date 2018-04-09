@@ -170,7 +170,7 @@
               }
             ]
           }
-        ],
+        ]
         "labSubnetName": "[variables('labSubnetName')]",
         "disallowPublicIpAddress": true,
         "storageType": "Premium",
