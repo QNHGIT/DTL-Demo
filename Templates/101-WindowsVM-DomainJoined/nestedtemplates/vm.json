@@ -83,7 +83,7 @@
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
         "notes": "Windows Enexis Image 1709",
-        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/enx-dtl-grp01-prd725081756001/providers/Microsoft.Compute/images/ENX-IMAGE-19042018",
+        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/qnh-rg-lab-we-ry2/providers/Microsoft.Compute/images/ENX-IMAGE-1709",
         "size": "[parameters('size')]",
         "userName": "[parameters('localUserName2')]",
         "password": "[parameters('localUserPassword2')]",
@@ -154,7 +154,7 @@
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
         "notes": "Windows Enexis Image 1709",
-        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/enx-dtl-grp01-prd725081756001/providers/Microsoft.Compute/images/ENX-IMAGE-19042018",
+        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/qnh-rg-lab-we-ry2/providers/Microsoft.Compute/images/ENX-IMAGE-1709",
         "size": "[parameters('size')]",
         "userName": "[parameters('localUserName')]",
         "password": "[parameters('localUserPassword')]",
