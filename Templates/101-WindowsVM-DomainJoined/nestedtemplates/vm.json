@@ -101,7 +101,7 @@
                 "value": "[parameters('localUserPassword2')]"
               }
             ]
-          }
+          },
           {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('LabName'), 'public repo', 'windows-domain-join-new')]",
             "parameters": [
