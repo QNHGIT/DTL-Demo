@@ -82,13 +82,26 @@
       },
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
-        "notes": "Windows Enexis Image 1703",
-        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourcegroups/qnh-rg-lab-we-ry2/providers/microsoft.devtestlab/labs/enx-dtl-grp01-prd/customimages/enx-vm-1703",
+        "notes": "Windows Enexis Image 1709",
+        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/enx-dtl-grp01-prd725081756001/providers/Microsoft.Compute/images/ENX-IMAGE-19042018",
         "size": "[parameters('size')]",
         "userName": "[parameters('localUserName2')]",
         "password": "[parameters('localUserPassword2')]",
         "isAuthenticationWithSshKey": false,
         "artifacts": [
+            {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-change-password')]",
+            "parameters": [
+              {
+                "name": "userName",
+                "value": "[parameters('localUserName2')]"
+              },
+              {
+                "name": "password",
+                "value": "[parameters('localUserPassword2')]"
+              }
+            ]
+          }
           {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('LabName'), 'public repo', 'windows-domain-join-new')]",
             "parameters": [
@@ -106,7 +119,7 @@
               },
               {
                 "name": "ouPath",
-                "value": ""
+                "value": "testou"
               }
             ]
           }
@@ -140,12 +153,24 @@
       },
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
-        "notes": "Windows Enexis Image 1703",
-        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourcegroups/qnh-rg-lab-we-ry2/providers/microsoft.devtestlab/labs/enx-dtl-grp01-prd/customimages/enx-vm-1703",
+        "notes": "Windows Enexis Image 1709",
+        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/enx-dtl-grp01-prd725081756001/providers/Microsoft.Compute/images/ENX-IMAGE-19042018",
         "size": "[parameters('size')]",
         "userName": "[parameters('localUserName')]",
         "password": "[parameters('localUserPassword')]",
         "isAuthenticationWithSshKey": false,
+        "artifacts": [
+              {
+                "name": "userName",
+                "value": "[parameters('localUserName')]"
+              },
+              {
+                "name": "password",
+                "value": "[parameters('localUserPassword')]"
+              }
+            ]
+          }
+        ],
         "labSubnetName": "[variables('labSubnetName')]",
         "disallowPublicIpAddress": true,
         "storageType": "Premium",
