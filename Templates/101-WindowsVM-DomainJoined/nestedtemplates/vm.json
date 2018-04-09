@@ -160,6 +160,9 @@
         "password": "[parameters('localUserPassword')]",
         "isAuthenticationWithSshKey": false,
         "artifacts": [
+{
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-change-password')]",
+            "parameters": [
               {
                 "name": "userName",
                 "value": "[parameters('localUserName')]"
@@ -170,7 +173,7 @@
               }
             ]
           }
-        ]
+        ],
         "labSubnetName": "[variables('labSubnetName')]",
         "disallowPublicIpAddress": true,
         "storageType": "Premium",
