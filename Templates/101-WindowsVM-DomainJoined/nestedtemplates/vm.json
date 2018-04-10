@@ -20,15 +20,6 @@
     "localUserPassword": {
       "type": "securestring"
     },
-    "localUserName2": {
-      "type": "string"
-    },
-    "localUserPassword2": {
-      "type": "securestring"
-    },
-    "dnsIp": {
-      "type": "string"
-    },
     "keyVaultName": {
       "type": "string"
     },
@@ -49,8 +40,12 @@
     },
     "Join_Active_Directory_(AD)_domain_domainToJoin": {
       "type": "string"
+    },
+    "Join_Active_Directory_(AD)_domain_ou": {
+      "type": "string"
     }
   },
+  
   "variables": {
     "subscriptionid": "[subscription().subscriptionId]",
     "keyVault-settings": {
@@ -85,8 +80,8 @@
         "notes": "Windows Enexis Image 1709",
         "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/qnh-rg-lab-we-ry2/providers/Microsoft.Compute/images/ENX-IMAGE-1709",
         "size": "[parameters('size')]",
-        "userName": "[parameters('localUserName2')]",
-        "password": "[parameters('localUserPassword2')]",
+        "userName": "[parameters('localUserName')]",
+        "password": "[parameters('localUserPassword')]",
         "isAuthenticationWithSshKey": false,
         "artifacts": [
             {
@@ -94,11 +89,11 @@
             "parameters": [
               {
                 "name": "userName",
-                "value": "[parameters('localUserName2')]"
+                "value": "[parameters('localUserName')]"
               },
               {
                 "name": "password",
-                "value": "[parameters('localUserPassword2')]"
+                "value": "[parameters('localUserPassword')]"
               }
             ]
           },
@@ -119,7 +114,7 @@
               },
               {
                 "name": "ouPath",
-                "value": "testou"
+                "value": "[parameters('Join_Active_Directory_(AD)_domain_ou')]"
               }
             ]
           }
