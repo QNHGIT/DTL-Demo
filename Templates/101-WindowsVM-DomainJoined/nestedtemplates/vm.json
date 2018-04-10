@@ -29,7 +29,7 @@
     "keyVaultExistingResourceGroup": {
       "type": "string"
     },
-    "domainjoinornot": {
+    "DomainJoin?": {
       "type": "string"
     },
     "Join_Active_Directory_(AD)_domain_domainAdminUsername": {
@@ -64,12 +64,12 @@
     "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
     "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('vmName'))]",
     "vmName": "[concat(parameters('labName'), '/', parameters('vmName'))]",
-    "domainjoinornot": "[toLower(parameters('domainjoinornot'))]"
+    "DomainJoin?": "[toLower(parameters('DomainJoin?'))]"
   },
 
   "resources": [
     {
-      "condition": "[equals(variables('domainjoinornot'),'ja')]",
+      "condition": "[equals(variables('DomainJoin?'),'ja')]",
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs/virtualmachines",
       "name": "[concat(variables('vmName'), 'DMN', padLeft(copyIndex(1), 2, '0'))]",
@@ -140,7 +140,7 @@
     },
     
     {
-      "condition": "[equals(variables('domainjoinornot'),'nee')]",
+      "condition": "[equals(variables('DomainJoin'),'nee')]",
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs/virtualmachines",
       "name": "[concat(variables('vmName'), 'LCL', padLeft(copyIndex(1), 2, '0'))]",
