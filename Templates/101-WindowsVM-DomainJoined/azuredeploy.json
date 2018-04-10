@@ -43,7 +43,7 @@
           "Aantal": {
             "value": "[parameters('Aantal')]"
           },
-          "domainjoinornot": {
+          "DomainJoin?": {
             "value": "[parameters('domainjoinornot')]"
           },
           "labName": {
