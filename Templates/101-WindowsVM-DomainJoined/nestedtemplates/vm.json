@@ -88,7 +88,7 @@
         "isAuthenticationWithSshKey": false,
         "artifacts": [
             {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-change-password')]",
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo280', '01-change-windows-password')]",
             "parameters": [
               {
                 "name": "userName",
@@ -101,7 +101,7 @@
             ]
           },
           {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('LabName'), 'public repo', 'windows-domain-join-new')]",
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo280', '01-windows-domain-join')]",
             "parameters": [
               {
                 "name": "domainAdminUsername",
@@ -159,7 +159,7 @@
         "isAuthenticationWithSshKey": false,
         "artifacts": [
 {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-change-password')]",
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo280', '01-change-windows-password')]",
             "parameters": [
               {
                 "name": "userName",
