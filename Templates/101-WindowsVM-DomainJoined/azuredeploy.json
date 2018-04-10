@@ -85,6 +85,12 @@
           },
           "Join_Active_Directory_(AD)_domain_domainToJoin": {
             "value": "testry.local"
+          },
+          "Join_Active_Directory_(AD)_domain_ou": {
+            "value": "OU=testou"
+          },
+          "imageId": {
+            "value": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/qnh-rg-lab-we-ry2/providers/Microsoft.Compute/images/ENX-IMAGE-0947"
           }
         }
       }
