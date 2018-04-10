@@ -1,0 +1,23 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+          "domainAdminUsername": {
+            "value": "testry.local\\srvradmin"
+          },
+          "domainAdminPassword": {
+            "reference": {
+              "keyVault": {
+                "id": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault"
+              },
+              "secretName": "srvradmin"
+            }
+          },
+          "domainToJoin": {
+            "value": "testry.local"
+          },
+          "ouPath": {
+            "value": "OU=testou"
+          }
+  }
+}
