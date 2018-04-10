@@ -10,29 +10,30 @@
   "targetOsType": "Windows",
   "parameters": {
     "domainAdminUsername": {
-      "value": "testry.local\\srvradmin"
+      "type": "string",
+      "displayName": "Domain join user account",
+      "description": "The Active Directory (AD) account (e.g. CORP\\user or user@corp.contoso.com) that has permissions to join the domain"
     },
     "domainAdminPassword": {
-      "reference": {
-        "keyVault": {
-          "id": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/QNH-RG-LAB-WE-RY2/providers/Microsoft.KeyVault/vaults/bigkeyvault"
-        },
-        "secretName": "srvradmin"
-      }
+      "type": "securestring",
+      "displayName": "Domain join password",
+      "description": "The password for the domain join user account."
     },
     "domainToJoin": {
       "type": "string",
       "displayName": "Active Directory domain name",
-      "description": "The name of the Active Directory (AD) domain to join (e.g. devtest.lab)."
+      "description": "The name of the Active Directory (AD) domain to join (e.g. corp.contoso.com)."
     },
     "ouPath": {
       "type": "string",
       "displayName": "Active Directory (AD) domain OU",
-      "description": "The OU path e.g. OU=DEV,OU=Computers,OU=DEVTEST,DC=devtest,DC=lab or OU=TST,OU=Computers,OU=DEVTEST,DC=devtest,DC=lab"
+      "description": "The OU path e.g. OU=Workstations,OU=Machines,DC=corp,DC=contoso,DC=com",
+      "allowEmpty": true,
+      "defaultValue": ""
     }
   },
   "runCommand": {
-    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./artifact-main.ps1', ' -domainAdminUsername ', parameters('domainAdminUsername'), ' -domainAdminPassword ''', parameters('domainAdminPassword'), ''' -domainToJoin ', parameters('domainToJoin'), ' -ouPath ''', parameters('ouPath'), '''\"')]"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./artifact.ps1', ' -DomainAdminUsername ''', parameters('domainAdminUsername'), ''' -DomainAdminPassword ''', parameters('domainAdminPassword'), ''' -DomainToJoin ', parameters('domainToJoin'), ' -OUPath ''', parameters('ouPath'), '''\"')]"
   },
   "postDeployActions": [
     {
