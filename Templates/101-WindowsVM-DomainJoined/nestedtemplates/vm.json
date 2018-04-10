@@ -140,7 +140,7 @@
     },
     
     {
-      "condition": "[equals(variables('DomainJoin'),'nee')]",
+      "condition": "[equals(variables('DomainJoin?'),'nee')]",
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs/virtualmachines",
       "name": "[concat(variables('vmName'), 'LCL', padLeft(copyIndex(1), 2, '0'))]",
