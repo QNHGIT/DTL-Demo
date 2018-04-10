@@ -44,7 +44,7 @@
             "value": "[parameters('Aantal')]"
           },
           "DomainJoin?": {
-            "value": "[parameters('domainjoinornot')]"
+            "value": "[parameters('DomainJoin?')]"
           },
           "labName": {
             "value": "ENX-DTL-GRP01-PRD"
