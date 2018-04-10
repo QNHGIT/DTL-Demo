@@ -43,6 +43,9 @@
     },
     "Join_Active_Directory_(AD)_domain_ou": {
       "type": "string"
+    },
+    "imageId": {
+      "type": "string"
     }
   },
   
@@ -78,7 +81,7 @@
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
         "notes": "Windows Enexis Image 1709",
-        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/qnh-rg-lab-we-ry2/providers/Microsoft.Compute/images/ENX-IMAGE-1709",
+        "customImageId": "[parameters('imageId')]",
         "size": "[parameters('size')]",
         "userName": "[parameters('localUserName')]",
         "password": "[parameters('localUserPassword')]",
@@ -149,7 +152,7 @@
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
         "notes": "Windows Enexis Image 1709",
-        "customImageId": "/subscriptions/05b9e932-1e04-4487-95fd-726ea5ade0f4/resourceGroups/qnh-rg-lab-we-ry2/providers/Microsoft.Compute/images/ENX-IMAGE-1709",
+        "customImageId": "[parameters('imageId')]",
         "size": "[parameters('size')]",
         "userName": "[parameters('localUserName')]",
         "password": "[parameters('localUserPassword')]",
