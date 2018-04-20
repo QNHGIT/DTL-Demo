@@ -1,0 +1,80 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "existingLabName": {
+      "type": "string"
+    },
+    "formulaName":{
+      "type": "string"    
+    },
+    "vmSize":{
+      "type": "string"
+    }
+  },
+  "variables": {
+    "labVirtualNetworkName": "[concat('Dtl', parameters('existingLabName'))]",
+    "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
+    "labVirtualNetworkId": "[concat('/virtualnetworks/', variables('labVirtualNetworkName'))]",
+    "ostype": "Windows", 
+    "repositoryName": "public repo",
+    "artifactsFolder": "artifacts"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.DevTestLab/labs/formulas",
+      "apiversion": "2017-04-26-preview",
+      "location": "[resourceGroup().location]",
+      "name": "[concat(parameters('existingLabName'), '/test2')]",
+      "properties": {
+        "description": "",
+        "ostype": "[variables('ostype')]",
+        "formulacontent": {
+          "properties": {
+            "size": "[parameters('vmSize')]",
+            "customImageId": "/customimages/enx-image-0947",
+            "username": "W10admin",
+            "password": "",
+            "isAuthenticationWithSshKey": false,
+            "labSubnetName": "DtlENX-DTL-GRP01-PRDSubnet",
+            "labVirtualNetworkId": "/virtualnetworks/dtlenx-dtl-grp01-prd",
+            "disallowPublicIpAddress": true,
+            "artifacts": [
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-run-powershell",
+                "parameters": [
+                  {
+                    "name": "scriptFileUris",
+                    "value": "https://aenxdtlgrp01prd7372.blob.core.windows.net/artifacts/domainjoin.ps1?sv=2017-07-29&ss=bfqt&srt=sco&sp=rl&se=2018-04-30T17:21:12Z&st=2018-04-10T09:21:12Z&spr=https&sr=b&sig=zw%2F8gZIAYLNqt%2BJwbkgTawD%2FO0Hww7DSt%2Fg8xccdgTM%3D"
+                  },
+                  {
+                    "name": "scriptToRun",
+                    "value": "domainjoin.ps1"
+                  },
+                  {
+                    "name": "scriptArguments",
+                    "value": ""
+                  }
+                ]
+              }
+            ],
+            "networkInterface": {
+              "sharedPublicIpAddressConfiguration": {
+                "inboundNatRules": [
+                  {
+                    "transportProtocol": "Tcp",
+                    "backendPort": 3389
+                  }
+                ]
+              }
+            },
+            "allowClaim": false,
+            "storageType": "Premium"
+          }
+        },
+        "provisioningState": "Succeeded",
+        "uniqueIdentifier": "ec2a65c9-5216-4e18-b524-6aea2feff090"
+      }
+    }
+    ]
+}
