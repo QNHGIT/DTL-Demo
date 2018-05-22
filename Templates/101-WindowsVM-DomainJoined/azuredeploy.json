@@ -5,6 +5,7 @@
     "vmName": {
       "type": "string",
       "maxLength": 10,
+      "defaultValue": "testvm",
       "metadata": {
         "description": "Naam van de Virtuele Machine(s)."
         }
@@ -12,6 +13,7 @@
     "Aantal": {
       "type": "int",
       "minValue": 1,
+      "defaultValue": 1,
       "metadata": {
         "description": "Aantal Virtuele Machine(s)."
         }
@@ -19,6 +21,7 @@
     "DomainJoin?": {
       "type": "string",
       "allowedValues": ["Ja", "Nee"],
+      "defaultValue": "Ja",
       "metadata": {
         "description": "Wilt u de Virtuele Machine(s) toevoegen aan de Active Directory?"
         }
